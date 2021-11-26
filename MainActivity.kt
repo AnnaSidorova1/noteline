@@ -1,12 +1,10 @@
-package com.example.game_d_anya
+package com.example.version_3
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.button2
-import kotlinx.android.synthetic.main.activity_second.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,8 +13,9 @@ class MainActivity : AppCompatActivity() {
         var name_text = name.text.toString();
         button2.setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java)
-
+            intent.putExtra("Username", name_text)
             startActivity(intent)
         }
+
     }
 }
