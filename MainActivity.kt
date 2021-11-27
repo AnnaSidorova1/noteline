@@ -10,12 +10,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var name_text = name.text.toString();
+        var name_text = name.getText()
         button2.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra("Username", name_text)
-            startActivity(intent)
+            if(name_text.length == 0)
+                Toast.makeText(applicationContext, "введи имя!", Toast.LENGTH_SHORT).show()
+            else {            //Toast.makeText(applicationContext, name_text, Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, SecondActivity::class.java)
+                intent.putExtra("Username", name_text)
+                startActivity(intent)
+            }
         }
-
     }
 }
