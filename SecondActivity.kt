@@ -37,6 +37,8 @@ class SecondActivity : AppCompatActivity() {
 
     var rightAnswers = listOf(1, 2, 1, 1, 1, 2, 1, 2, 1, 2)
     var marks = 0
+    //val profileName=intent.getStringExtra("Username")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,17 +52,18 @@ class SecondActivity : AppCompatActivity() {
         button3.setOnClickListener {
             showToast(3);
         }
-        val intent = Intent(this, SecondActivity::class.java)
-        val profileName=intent.getStringExtra("Username")
+        //val intent = Intent(this, SecondActivity::class.java)
+        //val profileName=intent.getStringExtra("Username")
+        //Toast.makeText(applicationContext, profileName, Toast.LENGTH_SHORT).show()
     }
 
     fun showToast(answer: Int) {
         if (answer==rightAnswers.get(questionNo)) {
-            Toast.makeText(applicationContext, "CORRECT!", Toast.LENGTH_SHORT).show()
-            updateQuestion()
+            //Toast.makeText(applicationContext, "CORRECT!", Toast.LENGTH_SHORT).show()
             marks++
+            updateQuestion()
         } else {
-            Toast.makeText(applicationContext, "WRONG!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(applicationContext, "WRONG!", Toast.LENGTH_SHORT).show()
             updateQuestion()
         }
     }
@@ -68,11 +71,26 @@ class SecondActivity : AppCompatActivity() {
     fun updateQuestion() {
         questionNo += 1
         if(questionNo == 10) {
-            Toast.makeText(applicationContext, "You have " + marks.toString() + " points", Toast.LENGTH_SHORT).show()
-            TimeUnit.MILLISECONDS.sleep(1000L)
+            if (marks>=8) {
+            //Toast.makeText(applicationContext, "You have " + marks.toString() + " points", Toast.LENGTH_SHORT).show()
+            //TimeUnit.MILLISECONDS.sleep(1000L)
+            val profileName=intent.getStringExtra("Username")
+            val intent = Intent(this, RightActivity::class.java)
+            intent.putExtra("Marks", marks.toString())
+
+            intent.putExtra("Username", profileName)
+            startActivity(intent)
+            }
+            else {
+                val profileName=intent.getStringExtra("Username")
+                val intent = Intent(this, WrongActivity::class.java)
+                intent.putExtra("Marks", marks.toString())
+
+                intent.putExtra("Username", profileName)
+                startActivity(intent)
+            }
         }
         textView.text = questions.get(questionNo)
-
     }
 
 }
